@@ -30,7 +30,7 @@
   actions: {
     async getMyOrdersFromDB({commit, rootGetters}) {
 			try {
-				const response = await fetch(`http://localhost/LAB11/api/orders.php?session_id=${rootGetters['user/getUser'].session_id}`)
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/orders.php?session_id=${rootGetters['user/getUser'].session_id}`)
 				const data = await response.json()
         commit('addOrders', data)
 			} 
@@ -40,7 +40,7 @@
 		},
     async addOrder({commit, rootGetters}, order) {
 			try {
-				const response = await fetch(`http://localhost/LAB11/api/orders.php?session_id=${rootGetters['user/getUser'].session_id}`, {
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/orders.php?session_id=${rootGetters['user/getUser'].session_id}`, {
 					method: 'POST',
 					body: JSON.stringify(order),
 					headers: { 'Content-type': 'application/json; charset=UTF-8' },

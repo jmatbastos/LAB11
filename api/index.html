@@ -67,9 +67,9 @@
 <p> Todos os dados recebidos da API ou enviados &agrave; API est&atilde;o no formato JSON. Pode testar os m&eacute;todos dispon&iacute;veis com o comando "curl", por exemplo 
 
 <br />
-<br /><tt>curl -X GET  'http://localhost/LAB11/api/users.php?email=jbastos@ualg.pt' </tt>
+<br /><tt>curl -X GET  'http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php?email=jbastos@ualg.pt' </tt>
 
-<br /><tt>curl -X POST  'http://localhost/LAB11/api/users.php' -d '{"name":"Mary Stevens","email":"stevens@gmail.com", "password":"sWd356"}'</tt>
+<br /><tt>curl -X POST  'http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php' -d '{"name":"Mary Stevens","email":"stevens@gmail.com", "password":"sWd356"}'</tt>
 
 <br /> 
 <br />ou utilizando o site <a href="https://postman.com">https://postman.com</a></p>
@@ -77,20 +77,20 @@
 <h3> Tabela users </h3>
 <ul>
 	<li><b>Verifica se um utilizador já se encontra registado na base de dados:
-	</b><br /> <b>GET</b> http://localhost/LAB11/api/users.php?email=jbastos@ualg.pt <br />
+	</b><br /> <b>GET</b> http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php?email=jbastos@ualg.pt <br />
 		retorna: JSON string {"id":"1","name":"Jose Bastos","email":"jbastos@ualg.pt"} ou null
 	</li>
 	<li><b>Registo de um utilizador:
-	</b><br /> <b>POST</b> http://localhost/LAB11/api/users.php <br />
+	</b><br /> <b>POST</b> http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php <br />
 		Body:  JSON string {"name" :"Jose Bastos","email": "jbastos@ualg.pt","password": "segredo"}	<br />
 		retorna: JSON string {"id":"1","name":"Jose Bastos","email":"jbastos@ualg.pt"} ou null		
 	</li>	
 	<li><b>Login de um utilizador:
-	</b><br /> <b>GET</b> http://localhost/LAB11/api/users.php?email=jbastos@ualg.pt&password="segredo" <br />
+	</b><br /> <b>GET</b> http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php?email=jbastos@ualg.pt&password="segredo" <br />
 		retorna: JSON string {"id":"1","name":"Jose Bastos","email":"jbastos@ualg.pt","session_id":"9pgcsrpgjrj3lm7sr6glju679v"} ou null
 	</li>
 	<li><b>Logout de um utilizador:
-	</b><br /> <b>GET</b> http://localhost/LAB11/api/users.php?session_id=9pgcsrpgjrj3lm7sr6glju679v <br />
+	</b><br /> <b>GET</b> http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php?session_id=9pgcsrpgjrj3lm7sr6glju679v <br />
 		retorna: JSON string {"message":"Session destroyed"} ou null
 	</li>
 </ul>
@@ -99,7 +99,7 @@
 <ul>	
 
 	<li><b>Todos os produtos:</b>
-	<br /> <b>GET</b> http://localhost/LAB11/api/products.php<br />
+	<br /> <b>GET</b> http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/products.php<br />
 		retorna: JSON string [{"cat_id":"SUSHI","id":"79","name":"Salmon Roll","description":"Simply delicious!", ...},  ...]	ou null 
 	</li>
 </ul>
@@ -110,11 +110,11 @@
 <ul>	
 
 	<li><b>Todos as ordens do utilizador:</b>
-	<br /> <b>GET</b> http://localhost/LAB11/api/orders.php?session_id=9pgcsrpgjrj3lm7sr6glju679v<br />
+	<br /> <b>GET</b> http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/orders.php?session_id=9pgcsrpgjrj3lm7sr6glju679v<br />
 		retorna: JSON string [{"id":"45", "user_id":"19","created_at":"2021-12-03 18:20:31","total":"102","status_id":"1","items":[{"id":"1","name":"Salmon Roll","price":"18","quantity":1},{"id":"2","name":"Spicy Fish Set","price":"28","quantity":2}]},  ...]	ou null 
 	</li>
 	<li><b>Registo de uma nova ordem do utilizador:</b> 
-	<br /> <b>POST</b> http://localhost/LAB11/api/orders.php?session_id=9pgcsrpgjrj3lm7sr6glju679v<br />
+	<br /> <b>POST</b> http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/orders.php?session_id=9pgcsrpgjrj3lm7sr6glju679v<br />
 		Body: JSON string {"user_id":"19","totalAmount":"102","status_id":"1","items":[{"id":"1","quantity":1},{"id":"2","quantity":2}]}<br />
 		retorna: JSON string {"id":"45","user_id":"19","totalAmount":"102","status_id":"1"}
 	</li>

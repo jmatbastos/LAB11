@@ -1,4 +1,4 @@
 // vue.config.js
 module.exports = {
-  publicPath: '/LAB11/dist'
+  publicPath: '/~a12345/LAB11/dist'
 }

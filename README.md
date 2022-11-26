@@ -11,11 +11,12 @@ npm run serve
 ```
 
 ### Compiles and minifies for production
+Note: Replace "12345" with your student number
 ```
 nano vue.config.js
 // vue.config.js
 module.exports = {
-  publicPath: '/LAB11/dist/'
+  publicPath: '/~a12345/LAB11/dist/'
 }
 npm run build
 ```
@@ -27,7 +28,7 @@ npm run lint
 
 ### Open project in browser at URL
 ```
-http://localhost/LAB11/dist/
+http://daw.deei.fct.ualg.pt/~a12345/LAB11/dist/
 ```
 
 ### Customize configuration

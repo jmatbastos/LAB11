@@ -32,7 +32,7 @@
   actions: {
     async getProductsFromDB({commit}) {
 			try {
-				const response = await fetch('http://localhost/LAB11/api/products.php')
+				const response = await fetch('http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/products.php')
 				const data = await response.json()
                 commit('addProducts', data)
 			} 
