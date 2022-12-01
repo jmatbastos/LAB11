@@ -34,12 +34,6 @@ CREATE TABLE `categories` (
 
 
 --
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` VALUES (1,'SUSHI',NULL,NULL),(2,'THAI FOOD',NULL,NULL),(3,'PIZZA',NULL,NULL),(4,'MEXICAN',NULL,NULL);
-
---
 -- Table structure for table `products`
 --
 
@@ -56,13 +50,6 @@ CREATE TABLE `products` (
   KEY `cat_id` (`cat_id`),
   CONSTRAINT `products_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` VALUES (1,1,'Salmon Roll','Simply delicious!',18,'04.jpg',1),(2,2,'Spicy Fish Set','Simply wonderful!',28,'03.jpg',1),(3,3,'Mozzarella Pizza','For meat lovers!',14,'02.jpg',1),(4,1,'Trout Roll','Fish delicious!',18,'04.jpg',1),(5,2,'Mexican Fish Set','No teeth required!',28,'03.jpg',1),(6,3,'Bakery special Pizza','Our special!',14,'02.jpg',1),(7,1,'Shrimp Roll','So Healty!',18,'04.jpg',1),(8,3,'Cheese lovers Pizza','For vegetarians!',14,'02.jpg',1);
 
 
 --

@@ -5,6 +5,8 @@ $db_name = "db_a12345";
 $db_user = "a12345";
 $db_passwd = "PASS";
 
+mysqli_report(MYSQLI_REPORT_OFF);
+
 // mostra uma mensagem de erro vinda do mysql
 function showerror($db)
 {
