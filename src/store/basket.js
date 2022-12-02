@@ -18,22 +18,41 @@
     ]
   },
   getters: {
-    getProducts () {
+    getProducts (state) {
+      return state.products;
     },   
   }, 
   mutations: {
-    clearBasket () {
-
+    clearBasket (state) {
+        state.products = []
     },
-    incrementProduct () {
-      // check if item exists in basket
-      // if not create item with quantity=1
-        
-      // else increment item
+    incrementProduct (state, idToIncrement) {
+        // check if item exists in basket
+        let itemExists = state.products.some(function(product) {
+            return product.id == idToIncrement;
+        })
 
+        // item does not exist; create item
+        if (!itemExists) {
+            state.products.push({
+                id: idToIncrement,
+                quantity: 0
+            })
+        }
+        // increment item
+        state.products.forEach( function (product) {     
+            if (product.id == idToIncrement)  
+                product.quantity++
+        })
       },    
-      decrementProduct () {
-
+      decrementProduct (state, idToDecrement) {
+        state.products.forEach( function (product, index) {       
+            if (product.id == idToDecrement && product.quantity >= 1)        
+                product.quantity--
+            // remove item if quantity is 0
+            if (product.quantity == 0)
+                state.products.splice(index,1)
+        })
       },
 	},
   actions: {
