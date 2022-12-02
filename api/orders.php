@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user_id'])) {
 
     $json=file_get_contents('php://input');
 
-    // {"user_id":"19","totalAmount":"102","status_id":"1","items":[{"id":"1","name":"Salmon Roll","price":"18","quantity":1},{"id":"2","name":"Spicy Fish Set","price":"28","quantity":2}]}
+    // {"user_id":"19","totalAmount":"102","status_id":"1","items":[{"id":"1","quantity":"1"},{"id":"2","quantity":"2"}]}
     $data = json_decode($json, true);
     // ligação base de dados
     $db = dbconnect($hostname,$db_name,$db_user,$db_passwd);
