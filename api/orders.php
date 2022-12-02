@@ -15,43 +15,51 @@ session_start();
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user_id'])) {
 
     $json=file_get_contents('php://input');
-
     // {"user_id":"19","totalAmount":"102","status_id":"1","items":[{"id":"1","quantity":"1"},{"id":"2","quantity":"2"}]}
     $data = json_decode($json, true);
-    // ligação base de dados
-    $db = dbconnect($hostname,$db_name,$db_user,$db_passwd);
-    if($db) {
-        // criar query numa string
-        $query  = "INSERT INTO orders SET user_id='" . $_SESSION['user_id'] . "',total='" . $data['totalAmount']  . "',status_id='" . $data['status_id'] . "',created_at=NOW()";
 
-        // executar a query
-        if(!($result = @ mysqli_query($db, $query)))
-            showerror($db);
-            
-        // get last order id
-        $query = "select * from orders order by id desc limit 1";
-        if(!($result = @ mysqli_query($db, $query)))
-            showerror($db);
-                
-        // insert order items
-        $last_order = mysqli_fetch_assoc($result);
-        foreach($data['items'] as $item) {
-            $query  = "INSERT INTO order_items SET order_id='" . $last_order['id'] . "',product_id='" . $item['id'] . "',quantity='" . $item['quantity'] . "'";
+    if (isset($data['totalAmount']) && isset($data['status_id']) && isset($data['items'])) {
+        // ligação base de dados
+        $db = dbconnect($hostname,$db_name,$db_user,$db_passwd);
+        if($db) {
+            // criar query numa string
+            $query  = "INSERT INTO orders SET user_id='" . $_SESSION['user_id'] . "',total='" . $data['totalAmount']  . "',status_id='" . $data['status_id'] . "',created_at=NOW()";
+
+            // executar a query
             if(!($result = @ mysqli_query($db, $query)))
                 showerror($db);
-        }
+                
+            // get last order id
+            $query = "select * from orders order by id desc limit 1";
+            if(!($result = @ mysqli_query($db, $query)))
+                showerror($db);
+                    
+            // insert order items
+            $last_order = mysqli_fetch_assoc($result);
+            foreach($data['items'] as $item) {
+                $query  = "INSERT INTO order_items SET order_id='" . $last_order['id'] . "',product_id='" . $item['id'] . "',quantity='" . $item['quantity'] . "'";
+                if(!($result = @ mysqli_query($db, $query)))
+                    showerror($db);
+            }
 
+            header('Access-Control-Allow-Origin: *');
+            header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+            header("Access-Control-Allow-Headers: Authorization, Origin, User-Token, X-Requested-With, Content-Type");        
+            
+            // convert to JSON
+            $json=json_encode($last_order);
+            echo $json;
+
+            // fechar a ligação à base de dados
+            mysqli_close($db);
+        }
+    }
+    else {
+    	header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");    
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-        header("Access-Control-Allow-Headers: Authorization, Origin, User-Token, X-Requested-With, Content-Type");        
-        
-        // convert to JSON
-        $json=json_encode($last_order);
-        echo $json;
-
-        // fechar a ligação à base de dados
-        mysqli_close($db);
-
+        header("Access-Control-Allow-Headers: Authorization, Origin, User-Token, X-Requested-With, Content-Type");
+        die('{"Error":"missing \'totalAmount\' or \'status_id\' or \'items\' in request"}');         
     }
 }
 
