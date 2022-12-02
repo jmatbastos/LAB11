@@ -98,13 +98,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	if (isset($data['name']) && isset($data['email']) && isset($data['password'])) {
 
+		// ligacao base de dados
+		$db = dbconnect($hostname,$db_name,$db_user,$db_passwd);
+		
 		$name = mysqli_real_escape_string($db, trim($data['name']));
 		$email = mysqli_real_escape_string($db, trim($data['email']));
 		$password = substr(md5($data['password']),0,32);	
 	
 
-		// ligacao base de dados
-		$db = dbconnect($hostname,$db_name,$db_user,$db_passwd);
 		if($db) {
 			// criar query numa string
 			$query  = "INSERT INTO users SET name='$name',email='$email',password_digest='$password',created_at=NOW(),updated_at=NOW()";
