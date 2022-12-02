@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import products from './products'
+import categories from './categories'
 import user from './user'
 import orders from './orders'
 import basket from './basket'
@@ -12,6 +13,7 @@ export default new Vuex.Store({
     products,
     user,
     orders,
-    basket  
+    basket,
+    categories  
   }
 })

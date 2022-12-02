@@ -59,7 +59,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user_id'])) {
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         header("Access-Control-Allow-Headers: Authorization, Origin, User-Token, X-Requested-With, Content-Type");
-        die('{"Error":"missing \'totalAmount\' or \'status_id\' or \'items\' in request"}');         
+        die('{"Error":"missing one or more properties \'totalAmount\' or \'status_id\' or \'items\' in data object"}');         
     }
 }
 
