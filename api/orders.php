@@ -83,7 +83,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['user_id'])) {
             $query = "select product_id, name, price, quantity from order_items inner join products on order_items.product_id=products.id where order_id='" . $orders[$i]['id'] . "' order by quantity desc";
             if(!($result2 = @ mysqli_query($db, $query)))
                 showerror($db);
-            $nrows2  = mysqli_num_rows($result2);    
+            $nrows2  = mysqli_num_rows($result2);   
+	    $items = [];  
             for($j=0; $j<$nrows2; $j++) {
                 $items[$j] = mysqli_fetch_assoc($result2);                
             }
