@@ -27,7 +27,7 @@
 			header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 			header("Access-Control-Allow-Headers: Authorization, Origin, User-Token, X-Requested-With, Content-Type");
 			// convert to JSON
-			$categoriesJSON = json_encode($categories);
+			$categoriesJSON = json_encode(utf8ize($categories));
 			echo $categoriesJSON;
 			// fechar a ligaçãbase de dados
 			mysqli_close($db);
@@ -39,6 +39,23 @@
 		header('Access-Control-Allow-Origin: *');
 		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 		header("Access-Control-Allow-Headers: Authorization, Origin, User-Token, X-Requested-With, Content-Type");	
+	}
+
+	function utf8ize($d) {
+		if (is_array($d)) {
+			foreach ($d as $k => $v) {
+				$d[$k] = utf8ize($v);
+			}
+		} 
+		else if (is_object($d)) {
+			foreach ($d as $k => $v) {
+				$d->$k = utf8ize($v);
+			}
+		} 	
+		else if (is_string ($d)) {
+			return utf8_encode($d);
+		}
+		return $d;
 	}
 
 
