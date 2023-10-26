@@ -1,4 +1,4 @@
-# LAB8_10 vue3-app skeleton
+# LAB811 vue3-app skeleton
 
 This template should help get you started developing with Vue 3 in Vite.
 
