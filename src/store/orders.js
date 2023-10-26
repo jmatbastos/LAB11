@@ -1,6 +1,9 @@
-  const orders = {
-  namespaced: true,
-  state: {
+import { defineStore } from 'pinia'
+import { useUserStore } from './user'
+
+export const useOrdersStore = defineStore({
+  id: 'orders',
+  state: () => ( {
     orders: 
     [
     //{
@@ -12,42 +15,41 @@
     //"order_items":[{"product_id":"2","name":"Salmon Roll","price":"18","quantity":"4"},{"product_id":"3","quantity":"3"},{"product_id":"4","quantity":"2"}]
     //}
     ]
-  },
+  }),
   getters: {
     getOrders (state) {
       return state.orders
     },   
   }, 
-  mutations: {
-    addOrders(state, orders){
-        state.orders = orders
-    },
-    addOrder(state, order){
-      state.orders = [...state.orders, order]
-  },
-
-	},
   actions: {
-    async getMyOrdersFromDB({commit, rootGetters}) {
+    addOrders(orders){
+      this.orders = orders
+    },
+    addOrder(order){
+      this.orders = [...this.orders, order]
+    },
+    async getMyOrdersDB() {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/orders.php?session_id=${rootGetters['user/getUser'].session_id}`)
+        const userStore = useUserStore()
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/orders.php?session_id=${userStore.getUser.session_id}`)
 				const data = await response.json()
-        commit('addOrders', data)
+        this.addOrders(data)
 			} 
 			catch (error) {
         console.log('error: ', error)
 			}
 		},
-    async addOrder({commit, rootGetters}, order) {
+    async addOrderDB(order) {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/orders.php?session_id=${rootGetters['user/getUser'].session_id}`, {
+        const userStore = useUserStore()
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/orders.php?session_id=${userStore.getUser.session_id}`, {
 					method: 'POST',
 					body: JSON.stringify(order),
 					headers: { 'Content-type': 'application/json; charset=UTF-8' },
 				})
 				const data = await response.json()
           console.log('received data:',data)
-          commit('addOrder', data)
+          this.addOrder(data)
           return true
 			} 
 			catch (error) {
@@ -56,8 +58,4 @@
 			}
 		},
   },
-  modules: {
-  }
-}
-export default 
-	orders
+})

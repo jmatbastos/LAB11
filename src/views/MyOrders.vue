@@ -21,8 +21,13 @@
 import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
 
+import { useOrdersStore } from '@/store/orders'
 
 export default {
+	setup() {
+		const ordersStore = useOrdersStore()	
+		return { ordersStore }
+  	},    
     components: {
 		Footer,
         Header

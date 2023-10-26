@@ -1,7 +1,8 @@
  
-  const basket = {
-  namespaced: true,
-  state: {
+  import { defineStore } from 'pinia'
+  export const useBasketStore = defineStore({
+  id: 'basket',
+  state: () => ( {
     products: [
     //  {
     //    id: 1,
@@ -16,49 +17,44 @@
     //    quantity: 3
     //  }
     ]
-  },
+  }),
   getters: {
     getProducts (state) {
       return state.products;
     },   
   }, 
-  mutations: {
-    clearBasket (state) {
-        state.products = []
+  actions: {
+    clearBasket () {
+        this.products = []
     },
-    incrementProduct (state, idToIncrement) {
+    incrementProduct (idToIncrement) {
         // check if item exists in basket
-        let itemExists = state.products.some(function(product) {
+        let itemExists = this.products.some(function(product) {
             return product.id == idToIncrement;
         })
 
         // item does not exist; create item
         if (!itemExists) {
-            state.products.push({
+            this.products.push({
                 id: idToIncrement,
                 quantity: 0
             })
         }
         // increment item
-        state.products.forEach( function (product) {     
+        this.products.forEach( function (product) {     
             if (product.id == idToIncrement)  
                 product.quantity++
         })
       },    
-      decrementProduct (state, idToDecrement) {
-        state.products.forEach( function (product, index) {       
+      decrementProduct (idToDecrement) {
+        this.products.forEach( function (product, index) {       
             if (product.id == idToDecrement && product.quantity >= 1)        
                 product.quantity--
             // remove item if quantity is 0
             if (product.quantity == 0)
-                state.products.splice(index,1)
+                this.products.splice(index,1)
         })
       },
 	},
-  actions: {
-  },
-  modules: {
-  }
-}
-export default 
-	basket
+
+})

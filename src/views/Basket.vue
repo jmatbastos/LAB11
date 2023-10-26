@@ -21,8 +21,15 @@
 import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
 
+import { useBasketStore } from '@/store/basket'
+import { useOrdersStore } from '@/store/orders'
+
 export default {
-	name: 'products',
+	setup() {
+		const basketStore = useBasketStore()
+		const ordersStore = useOrdersStore()		
+		return { basketStore, ordersStore }
+  	},
     components: {
 		Footer,
         Header

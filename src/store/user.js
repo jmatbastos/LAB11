@@ -1,6 +1,7 @@
-const user = {
-    namespaced: true,
-    state: {
+import { defineStore } from 'pinia'
+export const useUserStore = defineStore({
+    id: 'user',
+	state: () => ( {
         user: { 
         //"id":"1",
         //"name":"Peter Kinget",
@@ -12,25 +13,23 @@ const user = {
 		//"name":"abc"
 		//"password":"123456"			
 		},
-    },
+    }),
     getters: {
         getUser (state) {
             return state.user;
         },   
     }, 
-    mutations: {
-        loginUser(state, user){
-            state.user = user
-        },
-        logoutUser(state){
-            state.user = {}
-        },
-        tmpUser(state, user){
-            state.tmp_user = user
-        },           
-    },
     actions: {
-        async userExists({commit}, user) {
+		loginUser(user){
+            this.user = user
+        },
+        logoutUser(){
+            this.user = {}
+        },
+        tmpUser(user){
+            this.tmp_user = user
+        },	
+        async userExistsDB(user) {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php?email=${user.email}`, {
 					method: 'GET',
@@ -43,7 +42,7 @@ const user = {
                 }
                 else {
                     //remember temporary user
-                    commit('tmpUser', user)
+                    this.tmpUser(user)
                     return false
                 }                   
 			} 
@@ -53,11 +52,11 @@ const user = {
 				return false
 			}
 		}, 
-        async addUser({state}) {
+        async addUserDB() {
 			try {
                 const response = await fetch('http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php', {
 					method: 'POST',
-					body: JSON.stringify(state.tmp_user),
+					body: JSON.stringify(this.tmp_user),
 					headers: { 'Content-type': 'text/html; charset=UTF-8' },
 				})
 				const data = await response.json()
@@ -70,7 +69,7 @@ const user = {
 				return false			
 			}
 		},
-        async loginUser({commit}, user) {
+        async loginUserDB(user) {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php?email=${user.email}&password=${user.password}`)
 				const data = await response.json()
@@ -81,7 +80,7 @@ const user = {
                 else {
 					//add new user
 					console.log('received data:', data)
-					commit('loginUser', data)
+					this.loginUser(data)
                     return true
                 }
 
@@ -92,12 +91,12 @@ const user = {
 				return false			
 			}
 		}, 
-        async logoutUser({commit},session_id) {
+        async logoutUserDB(session_id) {
 			try {
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php?session_id=${session_id}`)
 				const data = await response.json()
                 console.log('received data:',data)
-                commit('logoutUser')
+                this.logoutUser()
 				return true
 			} 
 			catch (error) {
@@ -107,6 +106,4 @@ const user = {
 		},   
     }
 
-}
-export default 
-	user
+})
