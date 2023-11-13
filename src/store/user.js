@@ -91,9 +91,9 @@ export const useUserStore = defineStore({
 				return false			
 			}
 		}, 
-        async logoutUserDB(session_id) {
+        async logoutUserDB() {
 			try {
-				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php?session_id=${session_id}`)
+				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/users.php?session_id=${this.user.session_id}`)
 				const data = await response.json()
                 console.log('received data:',data)
                 this.logoutUser()

@@ -1,4 +1,4 @@
-# LAB811 vue3-app skeleton
+# LAB11 vue3-app skeleton
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -29,8 +29,6 @@ npm run dev
 
 ### Compile and Minify for Production
 
-Note: Replace "12345" with your student number
-
 ```sh
 nano vite.config.js
 // https://vitejs.dev/config/
@@ -40,6 +38,8 @@ export default defineConfig({
 
 npm run build
 ```
+Note: Replace "12345" with your student number
+
 ### Open project in browser at URL
 ```
 http://daw.deei.fct.ualg.pt/~a12345/LAB11/dist/
