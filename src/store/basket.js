@@ -29,32 +29,18 @@
     },
     incrementProduct (idToIncrement) {
         // check if item exists in basket
-        let itemExists = this.products.some(function(product) {
-            return product.id == idToIncrement;
-        })
+
 
         // item does not exist; create item
-        if (!itemExists) {
-            this.products.push({
-                id: idToIncrement,
-                quantity: 0
-            })
-        }
+
         // increment item
-        this.products.forEach( function (product) {     
-            if (product.id == idToIncrement)  
-                product.quantity++
-        })
+
       },    
       decrementProduct (idToDecrement) {
-        this.products.forEach( function (product, index) {       
-            if (product.id == idToDecrement && product.quantity >= 1)        
-                product.quantity--
-            // remove item if quantity is 0
-            if (product.quantity == 0)
-                this.products.splice(index,1)
-        })
-      },
+
+          // remove item if quantity is 0
+      }
+
 	},
 
 })
