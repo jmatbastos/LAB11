@@ -17,7 +17,7 @@ export default {
         var downloadTimer = setInterval(() => {
         if(timeleft <= 0){
             clearInterval(downloadTimer);
-            this.$router.push('/jobs')
+            this.$router.push('/products')
         }
         timeleft -= 1;
         }, 1000);
