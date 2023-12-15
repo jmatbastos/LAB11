@@ -96,7 +96,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['user_id'])) {
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         header("Access-Control-Allow-Headers: Authorization, Origin, User-Token, X-Requested-With, Content-Type");        
         // convert to JSON
-        $ordersJSON = json_encode($orders);
+        $ordersJSON = json_encode(mb_convert_encoding($orders,'UTF-8'));
         echo $ordersJSON; 
 
         // fechar a ligação à base de dados

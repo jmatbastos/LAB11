@@ -6,7 +6,7 @@ $db_user = "a12345";
 $db_passwd = "PASS";
 
 // Turn off all error reporting
-error_reporting(0);   
+// error_reporting(0);   
 mysqli_report(MYSQLI_REPORT_OFF);
 
 
