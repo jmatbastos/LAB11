@@ -42,12 +42,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user_id'])) {
                     showerror($db);
             }
 
+            //get last order items
+            $query = "select product_id, name, price, quantity from order_items inner join products on order_items.product_id=products.id where order_id='" . $last_order['id']  . "' order by quantity desc";
+            if(!($result = @ mysqli_query($db, $query)))
+                showerror($db);
+            $nrows  = mysqli_num_rows($result);   
+            $items = [];  
+            for($i=0; $i<$nrows; $i++) {
+                $items[$i] = mysqli_fetch_assoc($result);                
+            }
+            $last_order['items'] = $items;
+
+
             header('Access-Control-Allow-Origin: *');
             header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
             header("Access-Control-Allow-Headers: Authorization, Origin, User-Token, X-Requested-With, Content-Type");        
             
             // convert to JSON
-            $json=json_encode($last_order);
+            $json=json_encode(mb_convert_encoding($last_order,'UTF-8'));
             echo $json;
 
             // fechar a ligação à base de dados
@@ -84,7 +96,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['user_id'])) {
             if(!($result2 = @ mysqli_query($db, $query)))
                 showerror($db);
             $nrows2  = mysqli_num_rows($result2);   
-	    $items = [];  
+	        $items = [];  
             for($j=0; $j<$nrows2; $j++) {
                 $items[$j] = mysqli_fetch_assoc($result2);                
             }

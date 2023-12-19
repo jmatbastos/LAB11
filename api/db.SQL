@@ -26,11 +26,18 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` VALUES (1,'generic',NULL,NULL);
 
 
 --
