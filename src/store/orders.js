@@ -41,6 +41,12 @@ export const useOrdersStore = defineStore({
 		},
     async addOrderDB(order) {
 			try {
+        //order: {
+        // user_id:19,
+        // totalAmount:102,
+        // status_id:1,
+        // items:[{id:1,quantity:1},{id:2,quantity:2}]
+        //}
         const userStore = useUserStore()
 				const response = await fetch(`http://daw.deei.fct.ualg.pt/~a12345/LAB11/api/orders.php?session_id=${userStore.getUser.session_id}`, {
 					method: 'POST',
