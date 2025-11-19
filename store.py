@@ -16,7 +16,7 @@ def index():
     return render_template('shop/index.html',lab_name=lab_name) 
 
 @bp.route('/products')
-@bp.route('products/<int:id>')
+@bp.route('/products/<int:id>')
 def products(id = None):
     pass
 
@@ -51,3 +51,4 @@ def decrement(id):
 @bp.route('/increment/<int:id>')
 def increment(id):
     pass
+

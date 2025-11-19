@@ -44,6 +44,21 @@ def create_order(total):
 def insert_order_item(last_order,product_id, item_quantity):
     pass
 
+def basket_status():
+    db = get_db().cursor()    
+    total = 0
+    quantity = 0 
+    basket = session['basket']
+    for key, value in basket.items():
+        quantity += value
+        query = "select * from products where id='" + str(key) + "'"
+        db.execute(query)
+        product = db.fetchone()
+        total += value * product['price']
+    return {'quantity': quantity, 'total': total}
+
+def get_basket_products():
+    pass
 
     
 
